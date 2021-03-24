@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Jira issue filter
 // @namespace    https://github.com/patrickkahl
-// @version      1.9
+// @version      2.0
 // @description  Jira issue filter
 // @author       Patrick Kahl <kahl.patrick@googlemail.com>
-// @match        https://louis-internet.atlassian.net/secure/Dashboard.jspa*
+// @match        https://louis-internet.atlassian.net/secure/Dashboard.jspa**
 // @grant        none
 // @downloadURL  http://localhost/npm/Tampermonkey/jira/issue_filter.user.js
 // @updateURL    http://localhost/npm/Tampermonkey/jira/issue_filter.user.js
