@@ -1,17 +1,17 @@
 // ==UserScript==
 // @name         Jira issue filter
 // @namespace    https://github.com/patrickkahl
-// @version      2.0
+// @version      2.2
 // @description  Jira issue filter
 // @author       Patrick Kahl <kahl.patrick@googlemail.com>
-// @match        https://louis-internet.atlassian.net/secure/Dashboard.jspa**
+// @match        https://louis-internet.atlassian.net/jira/dashboards/last-visited*
 // @grant        none
 // @downloadURL  http://localhost/npm/Tampermonkey/jira/issue_filter.user.js
 // @updateURL    http://localhost/npm/Tampermonkey/jira/issue_filter.user.js
 // ==/UserScript==
 
 ;(function () {
-  'use strict'
+  ;('use strict')
 
   const GLOBAL_NAME = 'jira-issue-filter'
   const STORAGE_NAME = GLOBAL_NAME
@@ -118,13 +118,10 @@
         ;[].slice
           .call(issueTable.querySelectorAll(`.js-${GLOBAL_NAME}-toggler`))
           .forEach((toggler) => {
-            if (gadget.filter.includes(toggler.textContent.trim()))
-              toggleClasses(toggler, 'add')
+            if (gadget.filter.includes(toggler.textContent.trim())) toggleClasses(toggler, 'add')
 
             toggler.addEventListener('click', (e) => {
-              const type = !e.target.classList.contains('is-active')
-                ? 'add'
-                : 'remove'
+              const type = !e.target.classList.contains('is-active') ? 'add' : 'remove'
               toggleClasses(e.target, type)
               toggleStorage(e.target)
             })
