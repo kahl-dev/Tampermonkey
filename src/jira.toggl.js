@@ -1,21 +1,13 @@
-const errorNotification = (e) => {
-  GM.notification({
-    text: `Toggle API error`,
-    title: 'Toggl error',
-    timeout: 2000,
-  })
-}
-
 const initToggl = () => {
   if (document.querySelector('#toggl-clipboard')) return
   const breadcrump = document.querySelector('nav[aria-label="Breadcrumbs"]')
   if (!breadcrump) return
   breadcrump.insertAdjacentHTML(
-    'beforebegin',
-    `<button id="toggl-clipboard" style="border:none;background:none;margin-right:15px;">
+    'beforebegin',`<button id="toggl-clipboard" style="border:none;background:none;margin-right:15px;position:relative;">
       <img src="https://web-assets.toggl.com/app/assets/images/favicon.b87d0d2d.ico" style="width:20px;height:20px;">
     </button>`
   )
+  GM.addStyle("#toggl-clipboard.is-error:after, #toggl-clipboard.is-running:after { position: absolute; top: -10px; right: -1px; font-weight: bold; font-size: 20px; text-shadow: 0px 0px 5px black; } #toggl-clipboard.is-error:after { content: '\\78'; color: lightgreen; } #toggl-clipboard.is-running:after { content: '\\2713'; color: lightgreen; }")
   document.querySelector('#toggl-clipboard')?.addEventListener('click', async (e) => {
     const title = document.title.split(/ -(?!.* -)/)[0]
     const ticketArr = title.split(/ (.+)/)
@@ -36,7 +28,7 @@ const initToggl = () => {
     })
 
     if (res.status !== 200) {
-      errorNotification()
+      document.querySelector('#toggl-clipboard').classList.add('is-error')
       return
     }
     const clients = JSON.parse(res.response)
@@ -62,7 +54,7 @@ const initToggl = () => {
       })
 
       if (res.status !== 200) {
-        errorNotification()
+        document.querySelector('#toggl-clipboard').classList.add('is-error')
         return
       }
 
@@ -84,15 +76,27 @@ const initToggl = () => {
     })
 
     if (res.status !== 200) {
-      errorNotification()
+      document.querySelector('#toggl-clipboard').classList.add('is-error')
       return
     }
 
-    GM.notification({
-      text: `Copied "${content}" to clipboard`,
-      title: 'Toggl',
-      timeout: 2000,
-    })
+    document.querySelector('#toggl-clipboard').classList.add('is-running')
+
+    // GM_notification({
+    //   text: `Copied "${content}" to clipboard`,
+    //   title: 'Toggl',
+    //   highlight: true,
+    //   timeout: 2000,
+    //   image: 'https://i.stack.imgur.com/geLPT.png',
+    //   onclick: () => {
+    //     console.log('My notice was clicked.')
+    //     window.focus()
+    //   },
+    //   ondone: () => {
+    //     console.log('done')
+    //
+    //   }
+    // })
   })
 }
 

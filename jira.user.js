@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Jira
 // @namespace    https://github.com/patrickkahl
-// @version      3
+// @version      3.1
 // @description  Wrapper for Jira
 // @author       Patrick Kahl <patrick@kahl.dev>
 // @homepage     https://kahl.dev
@@ -12,6 +12,7 @@
 // @grant        GM.notification
 // @grant        GM.setValue
 // @grant        GM.getValue
+// @grant        GM.addStyle
 // @connect      *
 // @require      http://localhost/npm/Tampermonkey/env.js
 // @require      http://localhost/npm/Tampermonkey/lib/jira.init.js
